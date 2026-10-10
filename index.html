@@ -1,12 +1,471 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chalumphu Atjarit</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Chalumphu Atjarit, AI Transformation and Business Analyst at LG Electronics Thailand.">
+<title>Chalumphu Atjarit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a BA's sprint board turned sticker-bomb — chunky ink borders, hard offset shadows, tickets instead of cards */
+:root{
+  --bg:#EDF1E4; --paper:#FFFFFF; --ink:#151612; --muted:#5B5F52;
+  --pink:#FF4FA3; --lime:#C4F23A; --sky:#86CCFF; --tang:#FF8B3D;
+  --line:var(--ink); --shadow:var(--ink); --chip-ink:#151612;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Onest",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11130F; --paper:#1B1E18; --ink:#F1F4E8; --muted:#A6AB9A;
+  --line:#3A3F33; --shadow:#000000; --chip-ink:#151612; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#11130F; --paper:#1B1E18; --ink:#F1F4E8; --muted:#A6AB9A;
+  --line:#3A3F33; --shadow:#000000; --chip-ink:#151612; color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:radial-gradient(var(--line) 1px,transparent 1.2px);background-size:22px 22px;}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+.mono{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-block:14px}
+.navbar{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:8px 8px 8px 18px;
+  box-shadow:4px 4px 0 var(--shadow)}
+.logo{font-family:var(--f-display);font-weight:800;font-size:1.15rem;text-decoration:none;letter-spacing:-.02em}
+.logo b{color:var(--pink)}
+.links{display:flex;gap:4px;align-items:center}
+.links a{text-decoration:none;font-weight:500;font-size:.92rem;padding:8px 14px;border-radius:999px}
+.links a:hover{background:var(--lime);color:var(--chip-ink)}
+.tbtn{border:2px solid var(--line);background:var(--bg);color:var(--ink);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1rem}
+@media (max-width:720px){.links a.hide-sm{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;padding-block:48px 56px}
+.hero>*{min-width:0}
+.hello{display:inline-flex;gap:10px;align-items:center;background:var(--paper);border:2px solid var(--line);
+  border-radius:999px;padding:6px 14px 6px 8px;font-weight:500;font-size:.9rem}
+.dot{width:10px;height:10px;border-radius:50%;background:#2BD46B;box-shadow:0 0 0 4px #2BD46B33;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px #2BD46B00}}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.8rem,8vw,5.6rem);line-height:.92;
+  letter-spacing:-.045em;margin:22px 0 18px;text-wrap:balance}
+h1 .hl{background:var(--lime);color:var(--chip-ink);padding:0 .12em;border-radius:.18em;display:inline-block}
+
+.lede{font-size:1.12rem;max-width:34ch;color:var(--muted);margin:0 0 26px}
+.lede strong{color:var(--ink)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;padding:13px 22px;
+  border:2px solid var(--line);border-radius:14px;box-shadow:4px 4px 0 var(--shadow);transition:transform .15s,box-shadow .15s;
+  background:var(--paper);color:var(--ink);cursor:pointer;font-family:inherit;font-size:1rem}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--shadow)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--shadow)}
+.btn.pink{background:var(--pink);color:var(--chip-ink);border-color:var(--ink)}
+:root[data-theme="dark"] .btn.pink{border-color:#000}
+
+.photo{position:relative;max-width:420px;justify-self:center;width:100%}
+.frame{aspect-ratio:4/5;max-width:100%;border:2px solid var(--line);border-radius:28px;overflow:hidden;
+  box-shadow:8px 8px 0 var(--pink);background:linear-gradient(135deg,var(--sky),var(--lime));
+  display:grid;place-items:center}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.frame .initials{font-family:var(--f-display);font-weight:800;font-size:6rem;color:var(--chip-ink);letter-spacing:-.05em}
+.nowcard{position:absolute;left:-24px;bottom:28px;background:var(--paper);border:2px solid var(--line);border-radius:16px;
+  padding:12px 16px;box-shadow:4px 4px 0 var(--shadow);display:grid;gap:2px;max-width:min(260px,90%)}
+.nowcard b{font-family:var(--f-display);font-size:1.05rem;letter-spacing:-.02em;line-height:1.2}
+.nowcard small{color:var(--muted)}
+@media (max-width:500px){.nowcard{left:12px}}
+.stats{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.stat{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:12px 18px;min-width:130px}
+.stat.award{background:var(--lime);color:var(--chip-ink);border-color:#151612}
+.stat.award span{color:#2c3020}
+.stat b{font-family:var(--f-display);font-size:2rem;line-height:1;display:block;letter-spacing:-.03em}
+.stat span{font-size:.85rem;color:var(--muted)}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.photo{max-width:340px;margin-top:20px}}
+
+/* marquee */
+.marquee{border-block:2px solid #151612;background:var(--ink);color:var(--bg);overflow:hidden;margin-block:10px 70px}
+.track{display:flex;gap:34px;padding-block:14px;width:max-content;animation:slide 32s linear infinite;
+  font-family:var(--f-display);font-weight:600;font-size:1.25rem;letter-spacing:-.01em}
+.track span{display:inline-flex;align-items:center;gap:34px}
+.track i{font-style:normal;color:var(--lime)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding-block:28px 64px}
+.head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:30px}
+.eyebrow{display:inline-block;background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:12px}
+h2{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,5vw,3.4rem);line-height:1;letter-spacing:-.04em;margin:0;text-wrap:balance}
+h2 em{font-style:normal;color:var(--pink)}
+.sub{color:var(--muted);max-width:46ch;margin:0}
+
+/* about */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.tile{background:var(--paper);border:2px solid var(--line);border-radius:var(--r);padding:24px;min-width:0}
+.tile h3{font-family:var(--f-display);font-size:1.3rem;margin:10px 0 8px;letter-spacing:-.02em;line-height:1.15}
+.tile p{margin:0;color:var(--muted)}
+.t-main{grid-column:span 4;font-size:1.15rem}
+.t-main p{color:var(--ink);max-width:60ch}
+.t-main p+p{margin-top:12px;color:var(--muted);font-size:1rem}
+.t-lime{grid-column:span 2;background:var(--lime);color:var(--chip-ink);border-color:#151612}
+.t-lime p{color:#2c3020}
+.t-sky{grid-column:span 3;background:var(--sky);color:var(--chip-ink);border-color:#151612}
+.t-sky p{color:#1f2e3a}
+.t-skills{grid-column:span 3}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{border:2px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.88rem;font-weight:500;background:var(--bg)}
+@media (max-width:860px){.bento{grid-template-columns:1fr}.bento>.tile{grid-column:auto}}
+
+/* experience: sprint log */
+.log{display:grid;gap:22px}
+.job{display:grid;grid-template-columns:220px 1fr;gap:26px;background:var(--paper);border:2px solid var(--line);
+  border-radius:24px;padding:28px;box-shadow:6px 6px 0 var(--shadow);position:relative}
+.job>*{min-width:0}
+.when{display:flex;flex-direction:column;gap:10px}
+.now{align-self:flex-start;background:var(--lime);color:var(--chip-ink);border:2px solid #151612;border-radius:999px;padding:3px 10px}
+.past{align-self:flex-start;background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:3px 10px}
+.when .co{font-family:var(--f-display);font-weight:800;font-size:1.25rem;line-height:1.1;letter-spacing:-.02em}
+.when small{color:var(--muted)}
+.role+.role{margin-top:24px;padding-top:24px;border-top:2px dashed var(--line)}
+.role .dates{color:var(--muted);margin-bottom:10px}
+.job h3{font-family:var(--f-display);font-size:1.6rem;margin:0 0 4px;letter-spacing:-.03em}
+.job .ind{color:var(--pink);font-weight:600;margin-bottom:4px}
+.award-note{display:inline-flex;gap:8px;align-items:center;margin-top:16px;background:var(--lime);color:var(--chip-ink);border:2px solid #151612;border-radius:12px;padding:8px 12px;font-weight:600;font-size:.92rem}
+.job ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.job li{display:grid;grid-template-columns:22px 1fr;gap:8px}
+.job li::before{content:"✓";font-weight:800;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;
+  font-size:.75rem;background:var(--sky);color:#151612;margin-top:3px}
+@media (max-width:760px){.job{grid-template-columns:1fr;padding:22px}}
+
+/* projects: tickets */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:500 .9rem var(--f-body);border:2px solid var(--line);background:var(--paper);color:var(--ink);
+  border-radius:999px;padding:7px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ticket{background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;
+  transition:transform .2s,box-shadow .2s;min-width:0}
+.ticket:hover{transform:translateY(-4px);box-shadow:6px 8px 0 var(--shadow)}
+.ticket .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{border:2px solid #151612;color:#151612;border-radius:8px;padding:2px 8px}
+.tag.erp{background:var(--sky)} .tag.sub{background:var(--pink)} .tag.pay{background:var(--lime)} .tag.ops{background:var(--tang)} .tag.ai{background:var(--lime)}
+.ticket h3{font-family:var(--f-display);font-size:1.3rem;line-height:1.15;margin:0;letter-spacing:-.025em;text-wrap:balance}
+.ticket p{margin:0;color:var(--muted);font-size:.95rem}
+.ticket .foot{margin-top:auto;padding-top:12px;border-top:2px dashed var(--line);display:flex;gap:6px;flex-wrap:wrap;color:var(--muted)}
+.ticket .foot span{font-size:.7rem}
+.ticket.wide{grid-column:span 2}
+@media (max-width:900px){.board{grid-template-columns:1fr 1fr}.ticket.wide{grid-column:span 2}}
+@media (max-width:600px){.board{grid-template-columns:1fr}.ticket.wide{grid-column:auto}}
+
+/* awards */
+.awards{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:start}
+.award{background:var(--paper);border:2px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:6px 6px 0 var(--shadow);min-width:0;display:flex;flex-direction:column}
+.award figure{margin:0;border-bottom:2px solid var(--line);background:var(--bg)}
+.award img{display:block;width:100%;height:auto;max-width:100%}
+.award.tall img{aspect-ratio:4/5;object-fit:cover;object-position:center 60%}
+.award .body{padding:20px 22px 24px;display:grid;gap:8px}
+.award .yr{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.award .yr .y{background:var(--lime);color:var(--chip-ink);border:2px solid #151612;border-radius:8px;padding:2px 8px}
+.award h3{font-family:var(--f-display);font-size:1.5rem;margin:0;letter-spacing:-.03em;line-height:1.1}
+.award p{margin:0;color:var(--muted)}
+@media (max-width:760px){.awards{grid-template-columns:1fr}}
+
+/* contact */
+.cta{background:var(--pink);color:#151612;border:2px solid #151612;border-radius:32px;padding:clamp(28px,6vw,64px);
+  box-shadow:10px 10px 0 var(--shadow);position:relative;overflow:hidden}
+.cta h2{font-size:clamp(2.4rem,7vw,5rem);max-width:12ch}
+.cta p{max-width:46ch;font-size:1.1rem;margin:16px 0 26px}
+.mail{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.addr{font-family:var(--f-mono);background:#fff;color:#151612;border:2px solid #151612;border-radius:14px;padding:12px 16px;
+  user-select:all;word-break:break-all}
+.cta .btn{background:#151612;color:#fff;border-color:#151612;box-shadow:4px 4px 0 #fff}
+.cta .btn.alt{background:var(--lime);color:#151612}
+.blob{position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:var(--lime);border:2px solid #151612;opacity:.9}
+.cta>*:not(.blob){position:relative}
+footer{padding-block:34px 50px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;z-index:40}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="navbar">
+      <a class="logo" href="#top">chalumphu<b>.</b></a>
+      <div class="links">
+        <a class="hide-sm" href="#about">About</a>
+        <a class="hide-sm" href="#experience">Experience</a>
+        <a class="hide-sm" href="#awards">Awards</a>
+        <a href="#projects">Projects</a>
+        <a class="hide-sm" href="#contact">Contact</a>
+        <button class="tbtn" id="theme" aria-label="Toggle dark mode">◐</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <span class="hello"><span class="dot"></span>AI Transformation · LG Electronics Thailand</span>
+      <h1>Business analysis meets <span class="hl">AI transformation</span>.</h1>
+      <p class="lede">I'm <strong>Chalumphu Atjarit</strong>. I spent 2+ years turning operational requirements into ERP and subscription systems. Now I build AI and automation workflows that take routine work off teams at LG.</p>
+      <div class="ctas">
+        <a class="btn pink" href="#projects">View projects ↓</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>2+</b><span>years of experience</span></div>
+        <div class="stat"><b>8</b><span>projects delivered</span></div>
+        <div class="stat"><b>4+</b><span>business teams partnered</span></div>
+        <div class="stat award"><b>2</b><span>awards from the Regional CEO</span></div>
+      </div>
+    </div>
+    <div class="photo">
+      <div class="frame">
+        <img src="/profile.jpg" alt="Portrait of Chalumphu Atjarit" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'initials',textContent:'CA'}))">
+      </div>
+      <div class="nowcard"><span class="mono">Currently</span><b>AI Transformation (AX)</b><small>LG Electronics Thailand</small></div>
+    </div>
+  </header>
+</div>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>AI transformation <i>✦</i> Business analysis <i>✦</i> Subscription business <i>✦</i> ERP <i>✦</i> Process improvement <i>✦</i> UAT <i>✦</i> Stakeholder alignment <i>✦</i></span>
+    <span>AI transformation <i>✦</i> Business analysis <i>✦</i> Subscription business <i>✦</i> ERP <i>✦</i> Process improvement <i>✦</i> UAT <i>✦</i> Stakeholder alignment <i>✦</i></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="about">
+    <div class="head">
+      <div><span class="eyebrow mono">About</span><h2>About <em>me</em></h2></div>
+      <p class="sub">Business thinking, technical fluency, and a focus on workflows people can rely on.</p>
+    </div>
+    <div class="bento">
+      <div class="tile t-main">
+        <span class="mono">TL;DR</span>
+        <p>Business Analyst with 2+ years in subscription-based business models and ERP systems, now working on AI transformation at LG Electronics Thailand.</p>
+        <p>I translate business needs into scalable technical solutions, work across teams, and use data to improve user experience and operational performance.</p>
+      </div>
+      <div class="tile t-lime">
+        <span class="mono">Focus area</span>
+        <h3>Process &amp; AI adoption</h3>
+        <p>Business analysis, process improvement, and bringing AI into everyday operations across teams.</p>
+      </div>
+      <div class="tile t-sky">
+        <span class="mono">Working style</span>
+        <h3>Structured, detail-oriented, outcome-driven</h3>
+        <p>Clarity first, stakeholders aligned, then execution.</p>
+      </div>
+      <div class="tile t-skills">
+        <span class="mono">Toolkit</span>
+        <div class="chips">
+          <span class="chip">AI transformation</span><span class="chip">n8n automation</span><span class="chip">Reporting dashboards</span><span class="chip">Requirement gathering</span><span class="chip">User stories</span><span class="chip">Acceptance criteria</span>
+          <span class="chip">UAT</span><span class="chip">Wireframing</span><span class="chip">ERP</span><span class="chip">Agile / Scrum</span>
+          <span class="chip">Issue triage</span><span class="chip">User training</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="head">
+      <div><span class="eyebrow mono">Experience</span><h2>Work <em>experience</em></h2></div>
+      <p class="sub">Roles across business analysis, system implementation and operational support.</p>
+    </div>
+    <div class="log">
+      <article class="job">
+        <div class="when">
+          <span class="now mono">● Now</span>
+          <span class="co">LG Electronics Thailand</span>
+          <small class="mono">Apr 2025 – Present<br>Full-time · Bangkok, TH</small>
+        </div>
+        <div>
+          <div class="role">
+            <h3>AI Transformation (AX)</h3>
+            <div class="dates mono">Sep 2026 – Present</div>
+            <ul>
+              <li>Build n8n automation workflows for departments across the company to cut down routine, repetitive work.</li>
+              <li>Automate sales reporting: dashboards that are generated and delivered to stakeholders by email on schedule.</li>
+              <li>Work with each team to find which manual tasks are worth automating first.</li>
+            </ul>
+          </div>
+          <div class="role">
+            <h3>Business Analyst</h3>
+            <div class="ind">Subscription business</div>
+            <div class="dates mono">Apr 2025 – Present</div>
+            <ul>
+              <li>Led business analysis and system enhancement for the subscription business, translating requirements from Sales, Credit, Customer Service, Marketing and other teams into system solutions.</li>
+              <li>Led the OSMS Sales Module rollout to support subscription models and recurring revenue visibility.</li>
+              <li>Designed and ran user training to drive adoption of digital sales tools.</li>
+              <li>Owned issue investigation and developer coordination to keep operations running smoothly.</li>
+            </ul>
+            <div class="award-note">🏆 Best Performance Award 2025 · Best Support Award 2026</div>
+          </div>
+        </div>
+      </article>
+      <article class="job">
+        <div class="when">
+          <span class="past mono">Prev</span>
+          <span class="co">NPR Digital Partner</span>
+          <small class="mono">May 2024 – Mar 2025<br>Bangkok, TH</small>
+        </div>
+        <div>
+          <h3>IT Business Analyst</h3>
+          <div class="ind" style="margin-bottom:14px">Logistics &amp; Retail</div>
+          <ul>
+            <li>Gathered requirements and wrote user stories with acceptance criteria for system enhancements.</li>
+            <li>Partnered with UX/UI designers on wireframes and prototypes that improved usability.</li>
+            <li>Kept dev delivery aligned with the intended business logic.</li>
+            <li>Led UAT and turned stakeholder feedback into iterative improvements.</li>
+            <li>Supported sprint planning, daily stand-ups and retros.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="awards">
+    <div class="head">
+      <div><span class="eyebrow mono">Awards</span><h2>Recognized <em>two years running</em></h2></div>
+      <p class="sub">Both presented by the Regional CEO at LG's LSM Award Event.</p>
+    </div>
+    <div class="awards">
+      <article class="award">
+        <figure><img src="/award-2025.jpg" alt="Chalumphu Atjarit receiving the LG Subscribe Best Performance Award, Excellent Staff, IT System Subscription" loading="lazy"></figure>
+        <div class="body">
+          <div class="yr"><span class="y mono">2025</span><span class="mono">LSM Award Event</span></div>
+          <h3>Best Performance Award</h3>
+          <p>Excellent Staff, IT System Subscription (LG Subscribe). Recognized for outstanding contribution in supporting the sales team.</p>
+        </div>
+      </article>
+      <article class="award tall">
+        <figure><img src="/award-2026.jpg" alt="Chalumphu Atjarit receiving the Best Support Award on stage" loading="lazy"></figure>
+        <div class="body">
+          <div class="yr"><span class="y mono">2026</span><span class="mono">LSM Award Event</span></div>
+          <h3>Best Support Award</h3>
+          <p>Recognized for supporting the sales team to expand daily sales key-in.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="head">
+      <div><span class="eyebrow mono">Projects &amp; daily tasks</span><h2>Selected <em>projects</em></h2></div>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button aria-pressed="true" data-f="all">All</button>
+        <button aria-pressed="false" data-f="ai">AI &amp; Automation</button>
+        <button aria-pressed="false" data-f="erp">ERP</button>
+        <button aria-pressed="false" data-f="sub">Subscription</button>
+        <button aria-pressed="false" data-f="pay">Payments</button>
+        <button aria-pressed="false" data-f="ops">Ops</button>
+      </div>
+    </div>
+    <div class="board">
+      <article class="ticket wide" data-c="ai">
+        <div class="top"><span class="tag ai mono">AI · Automation</span><span class="mono">LG · 2026</span></div>
+        <h3>n8n Workflow Automation for Departments</h3>
+        <p>Built n8n workflows with teams across the company to take routine, repetitive jobs off their plates, starting from the manual tasks each department wanted gone first.</p>
+        <div class="foot mono"><span>#n8n</span><span>#automation</span><span>#AX</span></div>
+      </article>
+      <article class="ticket" data-c="ai">
+        <div class="top"><span class="tag ai mono">AI · Reporting</span><span class="mono">LG · 2026</span></div>
+        <h3>Automated Sales Dashboard &amp; Email Reports</h3>
+        <p>Sales dashboards that are built and sent to stakeholders by email automatically, with no manual report prep.</p>
+        <div class="foot mono"><span>#dashboard</span><span>#n8n</span></div>
+      </article>
+      <article class="ticket wide" data-c="erp">
+        <div class="top"><span class="tag erp mono">ERP · Retail</span></div>
+        <h3>Pre-Order Quota Management</h3>
+        <p>Designed a pre-order quota feature inside a retail ERP. Branch-level allocation (equal split or custom), zero impact on inventory, real-time quota checks during sales order creation, plus calculation logic for back-office planning.</p>
+        <div class="foot mono"><span>#requirements</span><span>#logic-design</span><span>#real-time-validation</span></div>
+      </article>
+      <article class="ticket" data-c="pay">
+        <div class="top"><span class="tag pay mono">Payments</span></div>
+        <h3>Payment Gateway Transformation</h3>
+        <p>Led requirement gathering with Accounts Receivable so the new gateway delivers real operational value.</p>
+        <div class="foot mono"><span>#AR</span><span>#stakeholders</span></div>
+      </article>
+      <article class="ticket" data-c="sub">
+        <div class="top"><span class="tag sub mono">Subscription</span></div>
+        <h3>Subscription Ops Workflow Enhancement</h3>
+        <p>Built and refined an ops workflow framework for better service continuity and clear ownership across teams.</p>
+        <div class="foot mono"><span>#process</span><span>#RACI</span></div>
+      </article>
+      <article class="ticket wide" data-c="erp">
+        <div class="top"><span class="tag erp mono">ERP · Logistics</span></div>
+        <h3>Delivery Order Integration</h3>
+        <p>Linked sales orders with delivery orders in a logistics ERP and enabled service-based pricing, so delivery runs like a standard sales transaction and billing stays accurate.</p>
+        <div class="foot mono"><span>#integration</span><span>#billing</span><span>#service-pricing</span></div>
+      </article>
+      <article class="ticket" data-c="ops">
+        <div class="top"><span class="tag ops mono">Ops · Daily</span></div>
+        <h3>Daily Support &amp; Issue Coordination</h3>
+        <p>Day-to-day support for back-office and sales system users: investigating issues, reading logs, escalating fast.</p>
+        <div class="foot mono"><span>#triage</span><span>#logs</span></div>
+      </article>
+      <article class="ticket wide" data-c="erp sub">
+        <div class="top"><span class="tag erp mono">ERP · SaaS</span></div>
+        <h3>ERP Product Improvement &amp; Enhancement</h3>
+        <p>Collected feedback from clients on a subscription-based ERP, spotted improvement opportunities, and shipped enhancements for usability and performance.</p>
+        <div class="foot mono"><span>#client-feedback</span><span>#usability</span><span>#continuous-improvement</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="cta">
+      <div class="blob" aria-hidden="true"></div>
+      <span class="mono">Contact</span>
+      <h2>Let's work together.</h2>
+      <p>Happy to talk about business analysis, AI transformation, or a project you have in mind.</p>
+      <div class="mail">
+        <span class="addr" id="addr">chalumphu.mind@gmail.com</span>
+        <button class="btn" id="copy">Copy email</button>
+        <a class="btn alt" href="https://www.linkedin.com/in/chalumphu-atjarit-036127231/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mono"><span>© 2026 Chalumphu Atjarit</span><span>Bangkok, Thailand</span></footer>
+</div>
+<div class="toast" id="toast" hidden>Email copied ✓</div>
+
+<script>
+(()=>{
+  const root=document.documentElement;
+  document.getElementById('theme').addEventListener('click',()=>{
+    const dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}
+  });
+  try{const t=localStorage.getItem('theme');if(t)root.dataset.theme=t}catch(e){}
+
+  const btns=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.ticket');
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
+    const f=b.dataset.f;
+    cards.forEach(c=>c.hidden=!(f==='all'||c.dataset.c.split(' ').includes(f)));
+  }));
+
+  const toast=document.getElementById('toast');
+  document.getElementById('copy').addEventListener('click',()=>{
+    const show=m=>{toast.textContent=m;toast.hidden=false;setTimeout(()=>toast.hidden=true,1800)};
+    const sel=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('addr'));const s=getSelection();s.removeAllRanges();s.addRange(r);show('Selected, press Ctrl+C')};
+    if(navigator.clipboard){navigator.clipboard.writeText('chalumphu.mind@gmail.com').then(()=>show('Email copied ✓'),sel)}else sel();
+  });
+})();
+</script>
+</body>
 </html>
